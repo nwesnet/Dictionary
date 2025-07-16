@@ -1,0 +1,36 @@
+:root {
+
+    --bg: #111;
+    --light-bg: #444;
+
+    --btn-bg: #444;
+    --btn-bg-hover: #555;
+
+    --area-bg: #333;
+
+    --select-bg: #292b2e;
+
+
+    --text: #fff;
+
+    --btn-text: #eee;
+    --btn-text-hover: #a259c4;
+
+    --btn-radius: 4px;
+    --area-radius: 12px;
+
+    --btn-border-color: #fff;
+
+
+
+}
+
+html, body {
+    font-size: 26px;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}

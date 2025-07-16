@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+
+        <Title>Dictionary</Title>
+        <link id="theme-style" rel="stylesheet" href="/css/dark.css">
+        <link rel="stylesheet" href="/css/navbar.css">
+        <link rel="stylesheet" href="/css/mainpage.css">
+    </head>
+    <body>
+        <div th:replace="fragments :: navbar"></div>
+
+        <div class="container">
+            <div class="translator-section">
+                <div class="translate-area">
+                    <select class="lang-select" id="lang-from">
+                        <option value="en" selected>English</option>
+                    </select>
+                    <div class="source-area">
+                        <textarea id="source-text" placeholder="Type your word or phrase..."></textarea>
+                        <div class="btn-section">
+                            <button type="button" id="translateBtn">T</button>
+                            <button id="copyBtn">C</button>
+                            <button type="reset" id="clearBtn">R</button>
+                        </div>
+                    </div>
+                    <div class="result-examples">
+                        <div class="result-title">Usage in text</div>
+                        <div class="content-examples" id="content-examples">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="translate-area">
+                    <select class="lang-select" id="lang-to">
+                        <option value="ru" selected>Russian</option>
+                    </select>
+                    <div class="source-area">
+                        <textarea id="target-text" readonly placeholder="Translation area here..."></textarea>
+                        <div class="btn-section">
+                            <button id="addFavoriteBtn">+</button>
+                            <button id="copyOutputBtn">C</button>
+                        </div>
+                    </div>
+                    <div class="result-info">
+                        <div class="result-title">Word info</div>
+                        <div class="content-info" id="content-info">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/js/translator.js"></script>
+    </body>
+</html>

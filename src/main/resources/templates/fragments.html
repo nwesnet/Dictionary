@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <body>
+        <div th:fragment="navbar">
+            <div id="header">
+                <div id="nav">
+                    <div class="nav-right">
+                        <a th:href="@{/theme}" class="nav-item" id="theme-toggle">Theme</a>
+                        <div class="auth-buttons" sec:authorize="!isAuthenticated()">
+                            <a href="http://localhost:8080/login" class="nav-item">Login</a>
+                            <a href="http://localhost:8080/register" class="nav-item">Register</a>
+                        </div>
+                        <div sec:authorize="isAuthenticated()" class="auth-buttons">
+                            <div class="dropdown">
+                                <a th:href="@{/}" class="nav-item">
+                                    <span sec:authentication="name"></span>
+                                </a>
+                                <div class="dropdown-content">
+                                    <a th:href="@{/}">Translation</a>
+                                    <a th:href="@{/training}">Training</a>
+                                </div>
+                            </div>
+                            <form th:action="@{/logout}" method="post">
+                                <button type="submit" class="logout-button">
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
