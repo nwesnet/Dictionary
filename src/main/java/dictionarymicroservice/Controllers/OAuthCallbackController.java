@@ -37,10 +37,13 @@ public class OAuthCallbackController {
         String token = (String) jwtResponse.getBody().get("token");
 
         Cookie cookie = new Cookie("JWT_TOKEN", token);
+        // The second way to implement the cross application authorization
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         response.addCookie(cookie);
 
         response.sendRedirect("/");
+        // The Authorization header way
+//        response.sendRedirect("/auth_success.html#token=" + token);
     }
 }

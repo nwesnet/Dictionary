@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login success</title>
+    </head>
+    <body>
+        <script>
+            const hash = window.location.hash;
+            const token = new URLSearchParams(hash.substring(1)).get('token');
+            if (token) {
+                localStorage.setItem("JWT_TOKEN", token);
+                window.location.href = "/";
+            } else {
+                document.body.innerHTML = "Login failed, no token received.";
+            }
+        </script>
+    </body>
+</html>

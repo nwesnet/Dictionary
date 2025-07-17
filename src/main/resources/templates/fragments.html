@@ -20,11 +20,18 @@
                                     <a th:href="@{/training}">Training</a>
                                 </div>
                             </div>
-                            <form th:action="@{/logout}" method="post">
-                                <button type="submit" class="logout-button">
-                                    Logout
-                                </button>
-                            </form>
+<!--                            <form th:action="@{/logout}" method="post">-->
+<!--                                <button type="submit" class="logout-button">-->
+<!--                                    Logout-->
+<!--                                </button>-->
+<!--                            </form>-->
+                            <button onClick="logout()">Logout</button>
+                            <script>
+                                function logout() {
+                                    localStorage.removeItem("JWT_TOKEN");
+                                    window.location.href = "/";
+                                }
+                            </script>
                         </div>
                     </div>
                 </div>
