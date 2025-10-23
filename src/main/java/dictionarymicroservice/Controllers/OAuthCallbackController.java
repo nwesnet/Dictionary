@@ -23,7 +23,7 @@ public class OAuthCallbackController {
         body.add("code", code);
 
         ResponseEntity<Map> jwtResponse = restTemplate.postForEntity(
-                "http://localhost:8080/oauth/token",
+                "http://localhost:1488/oauth/token",
                 body,
                 Map.class
         );
