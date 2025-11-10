@@ -105,7 +105,21 @@ document.addEventListener("DOMContentLoaded", function () {
     addFavoriteBtn.addEventListener("click", function() {
         const usernameEl = document.getElementById("current-username");
         const ownerUsername = usernameEl ? usernameEl.textContent.trim() : "";
+        // 1. Check if the user is authorized
+        if (!ownerUsername) {
+            const goToLogin = confirm(
+                "You need to be logged in to add favorite words. \n\nDo you want to go to the login page now?"
+            );
 
+            if (goToLogin) {
+                window.location.href =
+                    "http://localhost:1488/login"
+            }
+
+            return;
+        }
+
+        // 2. add the word
         const newFavoriteWord = sourceTextArea.value.trim();
 
         if (newFavoriteWord === "") {

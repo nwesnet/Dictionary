@@ -1,6 +1,7 @@
 package dictionarymicroservice.Configs;
 
 
+import dictionarymicroservice.Filters.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,16 +10,43 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 public class SecurityConfig {
+
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter();
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/logout", "/register", "/css/**", "/js/**", "/api/**", "/oauth/callback", "/training", "/getWordsForTraining", "/updateWordCounter").permitAll()
-                        .anyRequest().authenticated()
+                        // Public endpoints
+                        .requestMatchers(
+                                "/",
+                                "/login",
+                                "/register",
+                                "/css/**",
+                                "/js/**",
+                                "/api/translate",
+                                "/oauth/callback"
+                        ).permitAll()
+                        // Protected endpoints
+                        .requestMatchers(
+                                "/training",
+                                "/getWordsForTraining",
+                                "/updateWordCounter",
+                                "/logout",
+                                "/api/**"
+                        ).authenticated()
+                        .anyRequest().denyAll()
                 )
-                .logout(logout -> logout.disable())
-                .addFilterBefore(new dictionarymicroservice.Filters.JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .deleteCookies("JWT_TOKEN", "JSESSIONID")
+                        .logoutSuccessUrl("/")
+                )
+                .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

@@ -43,10 +43,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             try {
                 Claims claims = Jwts.parser()
-                        .setSigningKey(getSigningKey())
+                        .verifyWith(getSigningKey())
                         .build()
-                        .parseClaimsJws(token)
-                        .getBody();
+                        .parseSignedClaims(token)
+                        .getPayload();
                 String username = claims.getSubject();
                 if (username != null) {
                     UsernamePasswordAuthenticationToken auth =

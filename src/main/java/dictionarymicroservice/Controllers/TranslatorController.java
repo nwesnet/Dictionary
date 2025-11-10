@@ -4,11 +4,14 @@ package dictionarymicroservice.Controllers;
 import dictionarymicroservice.Entities.FavoriteWords;
 import dictionarymicroservice.Services.FavoriteWordsService;
 import dictionarymicroservice.Services.TranslatorService;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,14 +40,23 @@ public class TranslatorController {
         String word = payload.get("word");
         String ownerUsername = payload.get("ownerUsername");
 
-        FavoriteWords newWord = new FavoriteWords();
-        newWord.setCounter(0);
-        newWord.setWord(word);
-        newWord.setOwnerUsername(ownerUsername);
-        newWord.setDateAdded(LocalDateTime.now());
-        newWord.setLastUsed(LocalDateTime.now());
+        System.out.println("Frontend username: " + ownerUsername);
 
-        favoriteWordsService.saveToFavorite(newWord);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String owner_username = auth.getName();
+        System.out.println("Backend username: " + owner_username);
+        if (favoriteWordsService.findByUsernameAndWord(owner_username, word).isEmpty()) {
+
+            FavoriteWords newWord = new FavoriteWords();
+            newWord.setCounter(0);
+            newWord.setWord(word);
+            newWord.setOwnerUsername(owner_username);
+            newWord.setDateAdded(LocalDateTime.now());
+            newWord.setLastUsed(LocalDateTime.now());
+
+            favoriteWordsService.saveToFavorite(newWord);
+
+        }
 
         return ResponseEntity.ok().build();
     }
