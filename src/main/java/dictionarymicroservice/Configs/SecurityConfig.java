@@ -14,7 +14,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/logout", "/register", "/css/**", "/js/**", "/api/**").permitAll()
+                        .requestMatchers("/", "/login", "/logout", "/register", "/css/**", "/js/**", "/api/**", "/oauth/callback", "/training", "/getWordsForTraining", "/updateWordCounter").permitAll()
                         .anyRequest().authenticated()
                 )
                 .logout(logout -> logout.disable())

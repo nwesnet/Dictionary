@@ -2,12 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="UTF-8">
+        <title>Training</title>
 
-        <Title>Dictionary</Title>
         <link id="theme-style" rel="stylesheet" href="/css/dark.css">
         <link rel="stylesheet" href="/css/navbar.css">
         <link rel="stylesheet" href="/css/mainpage.css">
     </head>
+
     <body>
         <div th:replace="fragments :: navbar"></div>
 
@@ -20,9 +21,8 @@
                     <div class="source-area">
                         <textarea id="source-text" placeholder="Type your word or phrase..."></textarea>
                         <div class="btn-section">
-                            <button type="button" id="translateBtn">T</button>
-                            <button id="copyBtn">C</button>
-                            <button type="reset" id="clearBtn">R</button>
+                            <button type="button" id="startEnBtn">S</button>
+
                         </div>
                     </div>
                     <div class="result-examples">
@@ -38,10 +38,9 @@
                         <option value="ru" selected>Russian</option>
                     </select>
                     <div class="source-area">
-                        <textarea id="target-text" readonly placeholder="Translation area here..."></textarea>
+                        <textarea id="target-text" placeholder="Translation area here..."></textarea>
                         <div class="btn-section">
-                            <button id="addFavoriteBtn">+</button>
-                            <button id="copyOutputBtn">C</button>
+                            <button type="button" id="startRuBtn">S</button>
                         </div>
                     </div>
                     <div class="result-info">
@@ -53,7 +52,7 @@
                 </div>
             </div>
         </div>
-        <script src="/js/translator.js"></script>
+        <script src="/js/training.js"></script>
         <script src="/js/smtr.js"></script>
     </body>
 </html>
